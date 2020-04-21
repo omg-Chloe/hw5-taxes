@@ -9,7 +9,7 @@
 
 #include <inc/tax.h>
 
-using std::iostream;
+using std::istream;
 using std::ostream;
 // basic constructor
 /*Tax::Tax() {
@@ -38,18 +38,23 @@ double operator*(double lhs, const Tax& rhs) {
   return 0.0;
 }
 
-istream& operator>>(std::istream& lhs, Tax& rhs) {
-  string store;
-  *lhs >> store;
-  return *lhs;
+istream& Tax::Insert(istream* in) {
+  *in >> code_ >> percent_;
+  // create if statement to check white-space delim string and numeric
+  return *in;
 }
 
-// error ‘std::ostream& Tax::operator<<(std::ostream&, const Tax&)’
-// must take exactly one argument
-// stackoverflow says add std infront of (ostream& lhs)
-// didn't work
+std::istream& operator>>(std::istream& lhs, Tax& rhs) {
+  return rhs.Insert(&lhs);
+}
 
-ostream& operator<<(std::ostream& lhs, const Tax& rhs) {
-  lhs << code_ << ':' << percent();
-  return lhs;
+ostream& Tax::Extract(ostream* out) const {
+  *out << code_;
+  *out << ':' << percent_;
+  return *out;
+}
+
+std::ostream& operator<<(std::ostream& lhs, const Tax& rhs) {
+  // lhs << code_ << ':' << percent();
+  return rhs.Extract(&lhs);
 }

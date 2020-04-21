@@ -7,7 +7,7 @@ Item::Item() {
   description = "";
   price = 0.0
 }
-// 
+
 Item::Item(const std::string& description
            double price,
            const Tax* first,

@@ -46,6 +46,8 @@ class Tax {
    */
   double operator*(double rhs) const;
 
+  std::ostream& Extract(std::ostream* out) const;
+  std::istream& Insert(std::istream* in);
   friend std::ostream& operator<<(std::ostream& lhs, const Tax& rhs);
   friend std::istream& operator>>(std::istream& lhs, Tax& rhs);
 
